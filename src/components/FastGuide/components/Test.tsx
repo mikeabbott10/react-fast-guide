@@ -1,7 +1,7 @@
 import React from "react"
 import { useContext } from "react"
 import DataContext from "../context/DataContext"
-import { FastGuideLesson, FastGuideTestAnswer } from "../../../types";
+import { FastGuideLesson, FastGuideTestAnswer } from "../../../mytypes";
 import { useLocalStorage } from "../hooks/useLocalStorage"
 import TestAnswer from "./TestAnswer"
 import TestResult from "./TestResult"

@@ -1,7 +1,7 @@
 import React from "react"
 import { ReactNode, useContext } from "react"
 import DataContext from "../context/DataContext"
-import { FastGuideSection } from "../../../types";
+import { FastGuideSection } from "../../../mytypes";
 
 type NavSectionRowProps = {
     thisChapterIndex: number,

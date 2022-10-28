@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 
 import FastGuide from "./FastGuide";
-import { FastGuideChapter } from "../../types";
+import { FastGuideChapter } from "../../mytypes";
 
 type ContentProps = {
     title: string,

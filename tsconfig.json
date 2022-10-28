@@ -105,7 +105,7 @@
     "module": "ESNext",                                   /*Generate modern JS modules for our library*/
     "declaration": true,                                  /*Output a .d.ts file for our library types*/
     "declarationDir": "types",                            /*Where to place the .d.ts files*/
-    "sourceMap": true,                                    /*Mapping JS code back to its TS file origins for debugging*/
+    "sourceMap": false,                                    /*Mapping JS code back to its TS file origins for debugging*/
     "outDir": "dist",                                     /*Directory where the project will be generated*/
     "moduleResolution": "node",                           /*Follow node.js rules for finding modules*/
     "allowSyntheticDefaultImports": true,                 /*Assumes default exports if none are created manually*/

@@ -1,5 +1,5 @@
 import React from "react"
-import { FastGuideTestAnswer } from "../../../types";
+import { FastGuideTestAnswer } from "../../../mytypes";
 
 type NewType = {
     answer: FastGuideTestAnswer,

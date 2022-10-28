@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, ReactNode, useState } from "react";
-import { FastGuideChapter, FastGuideLesson, FastGuideMain, FastGuideSection } from "../../../types";
+import { FastGuideChapter, FastGuideLesson, FastGuideMain, FastGuideSection } from "../../../mytypes";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useWindowSize from "../hooks/useWindowSize";
 

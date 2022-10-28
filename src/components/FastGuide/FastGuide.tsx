@@ -1,5 +1,5 @@
 import React from 'react'
-import FastGuideMain from '../../types/FastGuideMain';
+import FastGuideMain from '../../mytypes/FastGuideMain';
 import { DataProvider } from './context/DataContext';
 import App from './App'
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import DataContext from "../context/DataContext";
-import { FastGuideLesson } from "../../../types";
+import { FastGuideLesson } from "../../../mytypes";
 
 type NavLessonRowProps = {
     thisChapterIndex: number,
