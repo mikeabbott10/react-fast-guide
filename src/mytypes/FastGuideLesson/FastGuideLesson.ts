@@ -4,7 +4,7 @@ import FastGuideTest from "../FastGuideTest";
 type FastGuideLesson = {
     title: string,
     body: ReactNode,
-    test: FastGuideTest
+    test?: FastGuideTest
 }
 
 export default FastGuideLesson;

@@ -1,5 +1,6 @@
-import React from "react";
+import React from "react"
 import { ReactElement, useContext, useEffect, useState } from "react"
+import { FastGuideSection } from "../../../mytypes";
 import DataContext from "../context/DataContext"
 import NavChapter from "./NavChapter";
 import NavLessonRow from "./NavLessonRow";
@@ -12,17 +13,14 @@ const NavigationArea = () => {
 
     useEffect(() => {
         setShowMobileNavigation(false)
-    }, [appCtx.currentChapter, appCtx.currentSection, appCtx.currentLesson])
-
-    const link = appCtx.guide.cardLink.url;
-    const linkText = appCtx.guide.cardLink.text;
+    }, [appCtx.currentChapterIndex, appCtx.currentSectionIndex, appCtx.currentLessonIndex])
 
     const navigationAreaList: ReactElement[] = [];
     let i = 0;
     let chapterIndex = 0;
 
     // get navigation area
-    appCtx.guide.chapters.forEach(chapter => {
+    appCtx.guide.chapters.forEach((chapter: { sections: FastGuideSection[]; title: string; }) => {
         const thisChapterIndex = chapterIndex;
 
         let sectionIndex = 0;
@@ -70,8 +68,7 @@ const NavigationArea = () => {
             {/* desktop view */}
             {appCtx.width !== null && appCtx.width > 960 &&
                 <div className="fg-navigation">
-                    <TopCard link={link} linkText={linkText} />
-
+                    <TopCard/>
                     <div className="fg-navigation-area">
                         {navigationAreaList}
                     </div>
@@ -109,7 +106,8 @@ const NavigationArea = () => {
                             <span
                                 className="fg-points"
                                 style={{ padding: 0, fontSize: ".8em", fontWeight: 600, marginRight: ".5rem" }}>
-                                {appCtx.points} points
+                                {appCtx.points === 0 && appCtx.guide.title}
+                                {appCtx.points > 0 && `${appCtx.points} points`}
                             </span>
                         </div>
                     </div>

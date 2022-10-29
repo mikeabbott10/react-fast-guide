@@ -1,14 +1,14 @@
 import React from "react"
 import { FastGuideTestAnswer } from "../../../mytypes";
 
-type NewType = {
+type TestAnswerProps = {
     answer: FastGuideTestAnswer,
     handleClick: ()=>void,
     disabled: boolean,
     highlighted: boolean
 }
 
-const TestAnswer = ({answer, handleClick, disabled, highlighted}: NewType) => {
+const TestAnswer = ({answer, handleClick, disabled, highlighted}: TestAnswerProps) => {
     return (
         <>
             {!disabled && 

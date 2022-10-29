@@ -1,42 +1,25 @@
 import React from "react"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import DataContext from "../context/DataContext"
-import { useMultistepContainer } from "../useMultistepContainer"
 import Buttons from "./Buttons"
 import { ContentWrapper } from "./ContentWrapper"
 import Test from "./Test"
 
 const Lessons = () => {
-    const {currentLesson, setCurrentState, getCurrentFGSection} = useContext(DataContext);
+    const {currentLessonIndex, setCurrentState, getCurrentFGSection, getCurrentFGLesson} = useContext(DataContext);
     const section = getCurrentFGSection();
+    const lesson = getCurrentFGLesson();
 
-    const lessonsBodies = section.lessons.map(lesson=> {return lesson.body})
-
-    const { steps: lessons, 
-            currentStepIndex: currentLessonIndex, 
-            step: currentLessonNode, 
-            isFirstStep: isFirstLesson, 
-            isLastStep: isLastLesson, 
-            /*next: nextLesson, 
-            back: prevLesson, */
-            goTo: goToLesson 
-        } 
-    = useMultistepContainer(lessonsBodies)
-
-    useEffect(() => {
-        goToLesson(currentLesson)
-    }, [currentLesson])
-
-    const myGoToLesson = (index:number) => {
+    const goToLesson = (index:number) => {
         setCurrentState({lesson: index})
     }
 
-    const myPrevLesson = () => {
-        setCurrentState({lesson: currentLesson - 1})
+    const prevLesson = () => {
+        setCurrentState({lesson: currentLessonIndex - 1})
     }
 
-    const myNextLesson = () => {
-        setCurrentState({lesson: currentLesson + 1})
+    const nextLesson = () => {
+        setCurrentState({lesson: currentLessonIndex + 1})
     }
     
 
@@ -44,23 +27,20 @@ const Lessons = () => {
         <div style={{width:"100%"}}>
             <ContentWrapper 
                 title={section.title} 
-                stepsNumber={lessons.length} 
-                currentStep={currentLessonIndex} 
-                goTo={myGoToLesson}
+                goTo={goToLesson}
             >
-              {currentLessonNode}
+              {lesson.body}
             </ContentWrapper>
 
-            {<Test 
-                currentLesson={section.lessons[currentLessonIndex]} 
-                key={getHash(JSON.stringify(section.lessons[currentLessonIndex]))}
+            {lesson.test && <Test 
+                key={getHash(JSON.stringify(lesson))} // key needed to differentiate lesson tests
             />}
             
             <Buttons 
-                isFirstStep={isFirstLesson} 
-                isLastStep={isLastLesson} 
-                onBack={myPrevLesson} 
-                onNext={myNextLesson}
+                isFirstStep={currentLessonIndex===0} 
+                isLastStep={currentLessonIndex===section.lessons.length-1} 
+                onBack={prevLesson} 
+                onNext={nextLesson}
             />
         </div>
     )

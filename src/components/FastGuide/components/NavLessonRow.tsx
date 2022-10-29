@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
-import DataContext from "../context/DataContext";
 import { FastGuideLesson } from "../../../mytypes";
+import DataContext from "../context/DataContext";
 
 type NavLessonRowProps = {
     thisChapterIndex: number,
@@ -16,12 +16,12 @@ const NavLessonRow = ({thisChapterIndex, thisSectionIndex, thisLessonIndex, less
     return (
         <li>
             <div className="fg-nav-container fg-nav-lesson-container">
-                {appCtx.currentSection === thisSectionIndex && appCtx.currentChapter === thisChapterIndex && appCtx.currentLesson === thisLessonIndex ?
+                {appCtx.currentSectionIndex === thisSectionIndex && appCtx.currentChapterIndex === thisChapterIndex && appCtx.currentLessonIndex === thisLessonIndex ?
                     <span className="fg-marker" style={{backgroundColor: "#0070f3"}}></span> : <span className="fg-marker"></span> }
                 <span className="fg-label" onClick={() => {
                     appCtx.setCurrentState({ chapter: thisChapterIndex, section: thisSectionIndex, lesson: thisLessonIndex })
                 }}>
-                    {appCtx.currentSection === thisSectionIndex && appCtx.currentChapter === thisChapterIndex && appCtx.currentLesson === thisLessonIndex ?
+                    {appCtx.currentSectionIndex === thisSectionIndex && appCtx.currentChapterIndex === thisChapterIndex && appCtx.currentLessonIndex === thisLessonIndex ?
                         <strong>{lesson.title}</strong> : lesson.title}
                 </span>
             </div>

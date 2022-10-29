@@ -2,7 +2,8 @@ import FastGuideLink from "../FastGuideLink"
 import FastGuideChapter from "../FastGuideChapter"
 
 type FastGuideMain = {
-    cardLink: FastGuideLink,
+    title: string,
+    cardLink?: FastGuideLink,
     chapters: FastGuideChapter[]
 }
 

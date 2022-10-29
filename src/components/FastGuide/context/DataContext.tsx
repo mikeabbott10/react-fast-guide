@@ -1,5 +1,5 @@
-import React from "react";
-import { createContext, ReactNode, useState } from "react";
+import React from "react"
+import { createContext, ReactNode, Reducer, useReducer } from "react";
 import { FastGuideChapter, FastGuideLesson, FastGuideMain, FastGuideSection } from "../../../mytypes";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useWindowSize from "../hooks/useWindowSize";
@@ -15,11 +15,11 @@ interface AppContextInterface {
     getCurrentFGChapter: () => FastGuideChapter;
     getCurrentFGSection: () => FastGuideSection;
     getCurrentFGLesson: () => FastGuideLesson;
-    points: number | null;
+    points: number;
     setPoints: (n: number | ((val: number) => number)) => void;
-    currentChapter: number;
-    currentSection: number;
-    currentLesson: number;
+    currentChapterIndex: number;
+    currentSectionIndex: number;
+    currentLessonIndex: number;
     setCurrentState: (obj: Partial<StateObject>) => void;
 }
 
@@ -29,35 +29,47 @@ export type StateObject = {
     lesson: number | undefined
 }
 
+interface GuideState {
+    chapter: number,
+    section: number,
+    lesson: number
+}
+
 const DataContext = createContext({} as AppContextInterface);
 
 export const DataProvider = ({ guide, children } : DataProviderProps) => {
     const {width} = useWindowSize();
-    const [currentChapter, setCurrentChapter] = useState(0);
-    const [currentSection, setCurrentSection] = useState(0);
-    const [currentLesson, setCurrentLesson] = useState(0);
+    const [currentGuideState, setCurrentGuideState] = useReducer<Reducer<GuideState, Partial<GuideState>>>(
+        (currentGuideState, newState) => ({...currentGuideState, ...newState}),
+        {chapter: 0, section: 0, lesson: 0}
+    );
     const [points, setPoints] 
         = useLocalStorage<number>("points", 0);
 
     const setCurrentState= (obj : Partial<StateObject>) => {
+        let chapter = currentGuideState.chapter, 
+            section = currentGuideState.section, 
+            lesson = currentGuideState.lesson;
         if(obj.chapter !== undefined)
-            setCurrentChapter(obj.chapter)
+            chapter = obj.chapter
         if(obj.section !== undefined)
-            setCurrentSection(obj.section)
+            section = obj.section
         if(obj.lesson  !== undefined)
-            setCurrentLesson(obj.lesson)
+            lesson = obj.lesson
+
+        setCurrentGuideState({ chapter, section, lesson });
     }
 
     const getCurrentFGChapter = () => {
-        return guide.chapters[currentChapter];
+        return guide.chapters[currentGuideState.chapter];
     }
 
     const getCurrentFGSection = () => {
-        return guide.chapters[currentChapter].sections[currentSection];
+        return guide.chapters[currentGuideState.chapter].sections[currentGuideState.section];
     }
 
     const getCurrentFGLesson = () => {
-        return guide.chapters[currentChapter].sections[currentSection].lessons[currentLesson];
+        return guide.chapters[currentGuideState.chapter].sections[currentGuideState.section].lessons[currentGuideState.lesson];
     }
 
     return (
@@ -65,7 +77,9 @@ export const DataProvider = ({ guide, children } : DataProviderProps) => {
             width, guide,
             getCurrentFGChapter, getCurrentFGSection, getCurrentFGLesson,
             points, setPoints,
-            currentChapter, currentSection, currentLesson,
+            currentChapterIndex: currentGuideState.chapter, 
+            currentSectionIndex : currentGuideState.section, 
+            currentLessonIndex : currentGuideState.lesson,
             setCurrentState
         }}>
             {children}

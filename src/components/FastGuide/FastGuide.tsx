@@ -10,8 +10,8 @@ interface FastGuideProps {
 const FastGuide = (props: FastGuideProps) => {
     return (
         <DataProvider guide={props.guide}>
-			<App/>
-		</DataProvider>
+            <App />
+        </DataProvider>
     )
 }
 

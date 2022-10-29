@@ -1,19 +1,19 @@
-import React, { ReactElement } from "react";
-import { ReactNode } from "react"
+import React from "react";
+import { ReactNode, useContext } from "react"
+import DataContext from "../context/DataContext";
 import LessonMarkButton from "./LessonMarkButton";
 
 type ContentWrapperProps = {
     title: string,
-    stepsNumber: number,
-    currentStep: number,
     goTo: (index: number) => void;
     children: ReactNode
 }
 
-export const ContentWrapper = ({ title, stepsNumber, currentStep, goTo, children}: ContentWrapperProps) => {
-    const lessonMarks : ReactElement[] = []
-    for (let i = 0; i < stepsNumber; i++) {
-        lessonMarks.push(<LessonMarkButton lessonNumber={i+1} key={i} onClick={goTo} isHighlighted={currentStep===i}/>)
+export const ContentWrapper = ({ title, goTo, children}: ContentWrapperProps) => {
+    const {currentLessonIndex, getCurrentFGSection} = useContext(DataContext)
+    const lessonMarks = []
+    for (let i = 0; i < getCurrentFGSection().lessons.length; i++) {
+        lessonMarks.push(<LessonMarkButton lessonNumber={i+1} key={i} onClick={goTo} isHighlighted={currentLessonIndex===i}/>)
     }
 
     return(

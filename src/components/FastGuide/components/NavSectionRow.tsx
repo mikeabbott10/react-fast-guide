@@ -1,7 +1,7 @@
-import React from "react"
 import { ReactNode, useContext } from "react"
 import DataContext from "../context/DataContext"
 import { FastGuideSection } from "../../../mytypes";
+import React from "react";
 
 type NavSectionRowProps = {
     thisChapterIndex: number,
@@ -16,17 +16,17 @@ const NavSectionRow = ({thisChapterIndex, thisSectionIndex, section, thisSection
     return (
         <li>
             <div className="fg-nav-container fg-nav-section-container">
-                {appCtx.currentSection === thisSectionIndex && appCtx.currentChapter === thisChapterIndex ?
+                {appCtx.currentSectionIndex === thisSectionIndex && appCtx.currentChapterIndex === thisChapterIndex ?
                     <span className="fg-marker" style={{backgroundColor: "#0070f3"}}></span> : <span className="fg-marker"></span> }
                 <span className="fg-label" onClick={() => {
                     appCtx.setCurrentState({ chapter: thisChapterIndex, section: thisSectionIndex, lesson: 0 })
                 }}>
-                    {appCtx.currentSection === thisSectionIndex && appCtx.currentChapter === thisChapterIndex ?
+                    {appCtx.currentSectionIndex === thisSectionIndex && appCtx.currentChapterIndex === thisChapterIndex ?
                         <strong>{section.title}</strong> : section.title}
                 </span>
             </div>
             <ul className="fg-ul inner">
-                {appCtx.currentChapter===thisChapterIndex && appCtx.currentSection===thisSectionIndex && thisSectionLessonsList}
+                {appCtx.currentChapterIndex===thisChapterIndex && appCtx.currentSectionIndex===thisSectionIndex && thisSectionLessonsList}
             </ul>
         </li>
     )

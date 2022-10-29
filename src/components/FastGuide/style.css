@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Cantarell:wght@400;700&family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root{
-    --light-container-color: #fafafa;
+    --fg-light-container-color: #fafafa;
 }
 
-body{
+.app-class{
     width: 100%;
     min-width: 320px;
     margin: 0;
-    font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-    line-height: 1.65;
+    /*line-height: 1.65;
+    font-family: Inter,-apple-system,Fira Sans,Droid Sans,sans-serif;
     font-size: 16px;
     direction: ltr;
     font-feature-settings: "kern";
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;*/
 }
 
 .fg-main-container{
@@ -105,7 +105,7 @@ body{
 }
 
 .fg-navigation-mobile > div .fg-navigation-area{
-    background-color: var(--light-container-color);
+    background-color: var(--fg-light-container-color);
     color: #111;
     position: absolute;
     display: -webkit-box;
@@ -170,6 +170,7 @@ body{
     -webkit-tap-highlight-color: transparent;
     font-weight: 600;
     color: inherit;
+    max-width: 50%;
 }
 
 .fg-navigation-mobile button svg g{
@@ -190,6 +191,7 @@ body{
     align-items: center;
     height: 100%;
     margin-top: 1px;
+    max-width:50%;
 }
 
 .fg-navigation-area{
@@ -197,7 +199,7 @@ body{
 }
 
 .fg-top-card{
-    background-color: var(--light-container-color);
+    background-color: var(--fg-light-container-color);
     color: #111;
     width: 264px;
     display: -webkit-box;
@@ -235,6 +237,17 @@ body{
     -ms-flex-align: center;
     align-items: center;
     padding: 1rem 1rem 0;
+    font-size: 20px;
+}
+
+
+.fg-title{
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1rem 1rem;
     font-size: 20px;
 }
 
@@ -318,7 +331,7 @@ body{
 
 /* test ---------------------------------------------------------*/
 .fg-test-container{
-    background: var(--light-container-color);
+    background: var(--fg-light-container-color);
     color: black;
     border: 1px solid#eaeaea;
     -webkit-border-radius: 8px;

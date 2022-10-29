@@ -1,6 +1,6 @@
 {
   "name": "@mikeabbott10/react-fast-guide",
-  "version": "0.8.6",
+  "version": "0.8.3",
   "description": "Light library that makes it simple to show guides inside web applications or web sites.",
   "scripts": {
     "rollup": "rollup -c",
@@ -41,6 +41,6 @@
   ],
   "types": "dist/index.d.ts",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.pkg.github.com/mikeabbott10"
   }
 }
