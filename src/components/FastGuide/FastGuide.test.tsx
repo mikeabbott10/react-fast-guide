@@ -219,6 +219,7 @@ const chapters: FastGuideChapter[] = [
 ];
 
 const guide = {
+    title: "Example guide",
     cardLink: { // chapter link
         url: "https://twitter.com/intent/tweet?url=https%3A%2F%2Freactfastguide.github.io&text=I%20just%20got%20185%20points✨%20on",
         text: "Tweet"
@@ -228,9 +229,7 @@ const guide = {
 
 describe("FastGuide", () => {
     test("renders the FastGuide component", () => {
-        render(<FastGuide guide={guide} />);
-
-        
+        render(<FastGuide guide={guide} enableHistory={false} />);
     });
 });
 

@@ -1,11 +1,13 @@
-import React from "react"
-import { createContext, ReactNode, Reducer, useReducer } from "react";
+import React from "react";
+import { createContext, ReactNode, Reducer, useEffect, useReducer } from "react";
 import { FastGuideChapter, FastGuideLesson, FastGuideMain, FastGuideSection } from "../../../mytypes";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import useReactHash from "../hooks/useReactHash";
 import useWindowSize from "../hooks/useWindowSize";
 
 type DataProviderProps = {
-    guide: FastGuideMain,
+    guide: FastGuideMain, 
+    enableHistory: boolean,
     children: ReactNode
 }
 
@@ -37,7 +39,9 @@ interface GuideState {
 
 const DataContext = createContext({} as AppContextInterface);
 
-export const DataProvider = ({ guide, children } : DataProviderProps) => {
+export const DataProvider = ({ guide, enableHistory, children } : DataProviderProps) => {
+    const hash = useReactHash();
+
     const {width} = useWindowSize();
     const [currentGuideState, setCurrentGuideState] = useReducer<Reducer<GuideState, Partial<GuideState>>>(
         (currentGuideState, newState) => ({...currentGuideState, ...newState}),
@@ -57,8 +61,45 @@ export const DataProvider = ({ guide, children } : DataProviderProps) => {
         if(obj.lesson  !== undefined)
             lesson = obj.lesson
 
-        setCurrentGuideState({ chapter, section, lesson });
+        if(enableHistory)
+            window.location.hash = `${chapter}-${section}-${lesson}`
+        else
+            setCurrentGuideState({ chapter, section, lesson });
     }
+
+    const isHashValid = (hash:string) => {
+        let splitted_hash = hash.split('-');
+        if(splitted_hash.length!=3) return;
+        let chapter = Number(splitted_hash[0].substring(1));
+        let section = Number(splitted_hash[1]);
+        let lesson = Number(splitted_hash[2]);
+        if(isNaN(chapter) || isNaN(section) || isNaN(lesson)) return false;
+        if(chapter < 0 || chapter >= guide.chapters.length) return false;
+        if(section < 0 || section >= guide.chapters[chapter].sections.length) return false;
+        if(lesson < 0 || lesson >= guide.chapters[chapter].sections[section].lessons.length) return false;
+        return { chapter, section, lesson };
+    }
+
+    useEffect(()=>{
+        if(!enableHistory) return;
+        try{
+            let nextState = isHashValid(hash);
+            if(!nextState) return;
+            setCurrentGuideState(nextState);
+        }catch(err){
+            console.error(err)
+        }
+    }, [hash])
+
+    useEffect(()=>{
+        if(!enableHistory) return;
+        let nextState = isHashValid(hash);
+        if(!nextState){
+            window.location.hash = `0-0-0`;
+            return;
+        }
+        setCurrentGuideState(nextState);
+    }, []);
 
     const getCurrentFGChapter = () => {
         return guide.chapters[currentGuideState.chapter];

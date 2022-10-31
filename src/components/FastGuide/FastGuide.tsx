@@ -4,12 +4,13 @@ import { DataProvider } from './context/DataContext';
 import App from './App'
 
 interface FastGuideProps {
-    guide: FastGuideMain
+    guide: FastGuideMain,
+    enableHistory: boolean
 }
 
 const FastGuide = (props: FastGuideProps) => {
     return (
-        <DataProvider guide={props.guide}>
+        <DataProvider guide={props.guide} enableHistory={props.enableHistory}>
             <App />
         </DataProvider>
     )
