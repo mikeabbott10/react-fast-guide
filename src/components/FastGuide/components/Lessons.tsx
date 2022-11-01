@@ -42,6 +42,8 @@ const Lessons = () => {
                 onBack={prevLesson} 
                 onNext={nextLesson}
             />
+
+            
         </div>
     )
 }
